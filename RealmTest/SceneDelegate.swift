@@ -1,24 +1,62 @@
-//
-//  SceneDelegate.swift
-//  RealmTest
-//
-//  Created by Юрий Мирзамагомедов on 24.04.2021.
-//
 
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
+  
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        if let ws = scene as? UIWindowScene {
+            let myWindow = UIWindow(windowScene: ws)
+            let navContr = UINavigationController()
+           let vc = TaskListViewController()
+            let vc2 = TaskViewController()
+            let vc3 = WeatherViewController()
+            let vc4 = CoreDataViewController()
+            
+            let tabbar = UITabBarController()
+            
+            tabbar.viewControllers = [navContr, vc, vc2, vc3, vc4]
+            
+            let item1 = UITabBarItem()
+            item1.title = "To Do List"
+            item1.image = .checkmark
+            vc.tabBarItem = item1
+            
+            let item2 = UITabBarItem()
+            item2.title = "Textfields"
+            item2.image = .checkmark
+            vc2.tabBarItem = item2
+            
+            let item3 = UITabBarItem()
+        item3.title = "Weather"
+            item3.image = .checkmark
+            vc3.tabBarItem = item3
+            
+            let item4 = UITabBarItem()
+        item4.title = "To Do List"
+            item4.image = .checkmark
+            vc4.tabBarItem = item4
+            
+            navContr.viewControllers = [vc4, vc]
+            myWindow.rootViewController = tabbar
+            
+//            let coreToDoListNavigation = UINavigationController()
+//            coreToDoListNavigation.viewControllers = [vc4]
+            
+            self.window = myWindow
+            myWindow.makeKeyAndVisible()
+            vc.readTsksAndUpdate()
+       
+       
+        }
+        
+        
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
+
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -49,4 +87,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
+
 
