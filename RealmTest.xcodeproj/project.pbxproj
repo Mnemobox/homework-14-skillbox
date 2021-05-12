@@ -12,6 +12,7 @@
 		0126FF842642B5A000E61BDD /* AddTaskCoreDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0126FF832642B5A000E61BDD /* AddTaskCoreDataViewController.swift */; };
 		0126FF922642BACA00E61BDD /* CoreDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0126FF912642BACA00E61BDD /* CoreDataTableViewCell.swift */; };
 		0126FF982643CFC200E61BDD /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0126FF962643CFC200E61BDD /* CoreDataModel.xcdatamodeld */; };
+		0126FFE6264AAFEC00E61BDD /* LoadingDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0126FFE5264AAFEC00E61BDD /* LoadingDataManager.swift */; };
 		01E93BB22634043200082FEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E93BB12634043200082FEE /* AppDelegate.swift */; };
 		01E93BB42634043200082FEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E93BB32634043200082FEE /* SceneDelegate.swift */; };
 		01E93BB92634043200082FEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01E93BB72634043200082FEE /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		0126FF832642B5A000E61BDD /* AddTaskCoreDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskCoreDataViewController.swift; sourceTree = "<group>"; };
 		0126FF912642BACA00E61BDD /* CoreDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTableViewCell.swift; sourceTree = "<group>"; };
 		0126FF972643CFC200E61BDD /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		0126FFE5264AAFEC00E61BDD /* LoadingDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDataManager.swift; sourceTree = "<group>"; };
 		01E93BAE2634043100082FEE /* RealmTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01E93BB12634043200082FEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01E93BB32634043200082FEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				01E93BFE2634189B00082FEE /* TaskListTableViewCell.swift */,
 				01E93BF92634126C00082FEE /* TaskViewController.swift */,
 				01E93C082639576300082FEE /* WeatherViewController.swift */,
+				0126FFE5264AAFEC00E61BDD /* LoadingDataManager.swift */,
 				0126FF2E26395DAC00E61BDD /* ForecastTableViewCell.swift */,
 				0126FF7B2642B2C500E61BDD /* CoreDataViewController.swift */,
 				0126FF912642BACA00E61BDD /* CoreDataTableViewCell.swift */,
@@ -444,6 +447,7 @@
 				0126FF842642B5A000E61BDD /* AddTaskCoreDataViewController.swift in Sources */,
 				0126FF7C2642B2C500E61BDD /* CoreDataViewController.swift in Sources */,
 				01E93BFA2634126C00082FEE /* TaskViewController.swift in Sources */,
+				0126FFE6264AAFEC00E61BDD /* LoadingDataManager.swift in Sources */,
 				01E93C092639576300082FEE /* WeatherViewController.swift in Sources */,
 				01E93BB42634043200082FEE /* SceneDelegate.swift in Sources */,
 				0126FF2F26395DAC00E61BDD /* ForecastTableViewCell.swift in Sources */,

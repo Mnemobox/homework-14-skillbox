@@ -156,4 +156,33 @@ class Persistance {
         set { UserDefaults.standard.set(newValue, forKey: "Persistance.kFeelsLikeKey")}
         get { return UserDefaults.standard.string(forKey: "Persistance.kFeelsLikeKey")}
     }
+    
+    func clearRealm() {
+        try! uiRealm.write {
+            uiRealm.deleteAll()
+        }
+    }
+    
+    func saveDataToRealm(_ weather: WeatherDataRealm) {
+        try! uiRealm.write {
+            uiRealm.add(weather)
+        }
+    }
+    
+    func saveAbotherDataToRealm(_ weather: MainRealm) {
+        try! uiRealm.write{
+            uiRealm.add(weather)
+        }
+    }
+    
+    func saveCityToRealm(_ city: CityRealm) {
+        try! uiRealm.write {
+            uiRealm.add(city)
+        }
+    }
+    
+    
+    
+    
+    
 }

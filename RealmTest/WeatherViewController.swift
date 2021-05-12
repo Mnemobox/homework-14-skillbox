@@ -9,8 +9,10 @@ import UIKit
 
 class WeatherViewController: UIViewController {
 
+  
+    
     let weatherTableView = UITableView()
-let cityLabel = UILabel()
+    let cityLabel = UILabel()
     let tempLabel = UILabel()
     let feelsLikeLabel = UILabel()
     let labelWidth: CGFloat = 200
@@ -59,85 +61,15 @@ let cityLabel = UILabel()
     var parsingCity: City = City()
     var cityRealm: [CityRealm] = []
     
-    
-    
-//    parse json with current weather
-    func updateweather () {
-        let urlString = "http://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lan=ru&appid=7ab62b3d88787a70fc84d3ba416ceeed"
-        let url = URL(string: urlString)!
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { (data, response, error) in
-            guard error == nil else { print("error - \(error?.localizedDescription)")
-                return}
-            do {
-                
-                let jsonData = try JSONDecoder().decode(WeatherData.self, from: data!)
-                self.currentWeather = jsonData
-                DispatchQueue.main.async {
-                    self.updateView()
-                }
-            }
-            catch {
-                print("\(error.localizedDescription)")
-            }
-        }
-        task.resume()
-        
-    }
-    
-//    parsing json with forecast for our table view
-    func updateTableViewForecast(completion: @escaping (ListW) -> Void) {
-        
-        let urlString = "http://api.openweathermap.org/data/2.5/forecast?q=Moscow&units=metric&lan=ru&appid=7ab62b3d88787a70fc84d3ba416ceeed"
-        let url = URL(string: urlString)
-        let session = URLSession.shared
-        let task = session.dataTask(with: url!) { (data, response, error) in
-            guard error == nil else { print("\(error?.localizedDescription)")
-                return }
-            
-            do {
-                let datalist = try JSONDecoder().decode(ListW.self, from: data!)
-             completion(datalist)
-            }
-            catch {
-                print("\(error.localizedDescription)")
-            }
-       
-        }
-        
-        task.resume()
-    }
-    func clearRealm() {
-        try! uiRealm.write {
-            uiRealm.deleteAll()
-        }
-    }
-    
-    func saveDataToRealm(_ weather: WeatherDataRealm) {
-        try! uiRealm.write {
-            uiRealm.add(weather)
-        }
-    }
-    
-    func saveAbotherDataToRealm(_ weather: MainRealm) {
-        try! uiRealm.write{
-            uiRealm.add(weather)
-        }
-    }
-    
-    func saveCityToRealm(_ city: CityRealm) {
-        try! uiRealm.write {
-            uiRealm.add(city)
-        }
-    }
-    
+//   loading parsed data from json
     func loadDataToRealm() {
-        updateTableViewForecast { (result) in
+        loadingDataManager.shared.updateTableViewForecast { (result) in
             DispatchQueue.main.async {
                 self.parsingWeather = result.list
                 self.parsingCity = result.city!
                 
-                self.clearRealm()
+             
+                Persistance.shared.clearRealm()
                 self.takeFromRealm.removeAll()
                 self.main.removeAll()
                 self.cityRealm.removeAll()
@@ -146,7 +78,7 @@ let cityLabel = UILabel()
                     let name = CityRealm()
                     name.name = result.city?.name
                     self.cityRealm.append(name)
-                    self.saveCityToRealm(name)
+                    Persistance.shared.saveCityToRealm(name)
                 }
             
               
@@ -159,10 +91,10 @@ let cityLabel = UILabel()
                     main.temp = el.main.temp!.description
                     main.feels_like = el.main.feels_like!.description
                     self.main.append(main)
-                    self.saveAbotherDataToRealm(main)
+                    Persistance.shared.saveAbotherDataToRealm(main)
                     
                     weather.dt_txt = el.dt_txt
-                    self.saveDataToRealm(weather)
+                    Persistance.shared.saveDataToRealm(weather)
                     self.takeFromRealm.append(weather)
                   
                 }
@@ -177,7 +109,15 @@ let cityLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        updateweather()
+       
+        loadingDataManager.shared.updateweather { (currentWeather) in
+            DispatchQueue.main.async {
+                self.currentWeather = currentWeather
+                self.updateView()
+            }
+        }
+    
+        
         createLabels()
         
         createTableView()
@@ -187,6 +127,7 @@ let cityLabel = UILabel()
       
         loadDataToRealm()
      
+//        loading data from realm to fill table view while the new data is being loaded from json
         let weather = uiRealm.objects(WeatherDataRealm.self)
         for el in weather {
             let loadedelement = WeatherDataRealm()
@@ -213,22 +154,8 @@ let cityLabel = UILabel()
         cityLabel.text = Persistance.shared.cityName
         tempLabel.text = Persistance.shared.currentTemp
         feelsLikeLabel.text = Persistance.shared.feelsLike
-    
-        
-        
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
